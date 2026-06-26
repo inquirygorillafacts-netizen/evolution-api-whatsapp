@@ -1,0 +1,2288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RD Models | Evolution Sender</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg-main: #070a13;
+      --bg-card: rgba(17, 24, 43, 0.75);
+      --bg-card-hover: rgba(26, 36, 64, 0.85);
+      --border-color: rgba(255, 255, 255, 0.06);
+      --border-focus: rgba(99, 102, 241, 0.4);
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-glow: rgba(99, 102, 241, 0.25);
+      --accent: #a855f7;
+      --success: #10b981;
+      --success-glow: rgba(16, 185, 129, 0.15);
+      --error: #f43f5e;
+      --warning: #f59e0b;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Gradient Background Blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.35;
+    }
+    .blob-primary {
+      top: -10%;
+      left: 10%;
+      width: 450px;
+      height: 450px;
+      background: var(--primary);
+    }
+    .blob-accent {
+      bottom: 10%;
+      right: 15%;
+      width: 500px;
+      height: 500px;
+      background: var(--accent);
+    }
+
+    /* Container & Layout */
+    .app-container {
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      flex: 1;
+    }
+
+    /* Header Styling */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+      transform: rotate(-3deg);
+    }
+
+    .brand-logo i {
+      color: #fff;
+      width: 22px;
+      height: 22px;
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #fff, #cbd5e1);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--success);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--success);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.6; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.6; }
+    }
+
+    /* Main Section */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 25px;
+      flex: 1;
+    }
+
+    @media (max-width: 900px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 20px;
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-main);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.05));
+      border-left: 3px solid var(--primary);
+      color: #fff;
+      padding-left: 15px;
+    }
+
+    /* Workspace / Cards */
+    .workspace {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 30px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+
+    .card-title i {
+      color: var(--primary);
+    }
+
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      width: 18px;
+      height: 18px;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      color: #fff;
+      padding: 14px 16px 14px 46px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .form-textarea {
+      padding-left: 16px;
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 14px var(--primary-glow);
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    .input-hint {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    /* Custom Slider */
+    .slider-container {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      padding: 15px 20px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .slider-val {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .form-range {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: none;
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, var(--error), #be123c);
+      box-shadow: 0 8px 24px rgba(244, 63, 94, 0.25);
+    }
+
+    .btn-danger:hover {
+      box-shadow: 0 12px 30px rgba(244, 63, 94, 0.4);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, var(--success), #047857);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+    }
+
+    .btn-success:hover {
+      box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Drag-and-drop upload */
+    .dropzone {
+      border: 2px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 35px 20px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .dropzone:hover {
+      border-color: var(--primary);
+      background: rgba(99, 102, 241, 0.03);
+    }
+
+    .dropzone i {
+      color: var(--primary);
+      width: 44px;
+      height: 44px;
+      margin-bottom: 12px;
+    }
+
+    .dropzone-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .dropzone-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    @media (max-width: 768px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .metric-card {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .metric-val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      margin-bottom: 25px;
+    }
+
+    .progress-bar-wrapper {
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      width: 0%;
+      border-radius: 5px;
+      box-shadow: 0 0 8px var(--primary);
+    }
+
+    /* Data Table Grid */
+    .table-container {
+      max-height: 250px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.25);
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 12px 16px;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      color: var(--text-main);
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .badge-pending { background: rgba(245, 158, 11, 0.12); color: var(--warning); }
+    .badge-sending { background: rgba(99, 102, 241, 0.12); color: var(--primary); }
+    .badge-processing { background: rgba(56, 189, 248, 0.12); color: #38bdf8; }
+    .badge-sent { background: rgba(16, 185, 129, 0.12); color: var(--success); }
+    .badge-failed { background: rgba(244, 63, 94, 0.12); color: var(--error); }
+    .badge-invalid { background: rgba(100, 116, 139, 0.12); color: var(--text-muted); }
+
+    /* Live Terminal Terminal Console */
+    .terminal {
+      background: #020408;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .td-red { background-color: var(--error); }
+    .td-yellow { background-color: var(--warning); }
+    .td-green { background-color: var(--success); }
+
+    .terminal-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .terminal-logs {
+      max-height: 200px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      line-height: 1.5;
+    }
+
+    .log-line {
+      word-break: break-all;
+    }
+    .log-info { color: #38bdf8; }
+    .log-success { color: #34d399; }
+    .log-warn { color: #fbbf24; }
+    .log-error { color: #f87171; }
+
+    /* PowerShell Card styles */
+    .ps-card {
+      background: rgba(30, 41, 59, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .ps-code-box {
+      background: #020408;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 15px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      overflow-x: auto;
+      margin: 12px 0;
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      border-radius: 6px;
+      color: var(--text-muted);
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .spin {
+      animation: rotating 2s linear infinite;
+    }
+
+    @keyframes rotating {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== INBOX STYLES ===== */
+    .inbox-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      height: 600px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background: rgba(0,0,0,0.3);
+    }
+    @media(max-width:900px) { .inbox-layout { grid-template-columns: 1fr; height: auto; } }
+
+    .inbox-contacts {
+      background: rgba(10, 15, 30, 0.9);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .inbox-contacts-header {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .inbox-search {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      outline: none;
+      font-family: inherit;
+    }
+    .inbox-search:focus { border-color: var(--primary); }
+
+    .inbox-new-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--primary);
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .inbox-new-btn:hover { background: var(--primary-hover); }
+
+    .inbox-chat-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .inbox-chat-item {
+      padding: 14px 16px;
+      cursor: pointer;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .inbox-chat-item:hover { background: rgba(255,255,255,0.04); }
+    .inbox-chat-item.active { background: rgba(99, 102, 241, 0.12); border-left: 3px solid var(--primary); }
+
+    .inbox-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #334155, #1e293b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--primary);
+      flex-shrink: 0;
+      text-transform: uppercase;
+    }
+
+    .inbox-chat-info { flex: 1; min-width: 0; }
+    .inbox-chat-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .inbox-chat-preview {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 3px;
+    }
+    .inbox-chat-time {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      flex-shrink: 0;
+    }
+
+    /* Right: Message Thread */
+    .inbox-thread {
+      display: flex;
+      flex-direction: column;
+      background: rgba(5, 10, 20, 0.6);
+      overflow: hidden;
+    }
+
+    .inbox-thread-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(10, 15, 30, 0.8);
+    }
+    .inbox-thread-name {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .inbox-thread-number {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+
+    .inbox-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 0;
+    }
+
+    .msg-bubble {
+      max-width: 75%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      word-break: break-word;
+      position: relative;
+    }
+    .msg-sent {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .msg-received {
+      align-self: flex-start;
+      background: rgba(255,255,255,0.08);
+      color: var(--text-main);
+      border-bottom-left-radius: 4px;
+    }
+    .msg-time {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: 4px;
+      text-align: right;
+    }
+    .msg-received .msg-time { text-align: left; }
+
+    .inbox-empty {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dim);
+      gap: 12px;
+    }
+    .inbox-empty i { width: 56px; height: 56px; opacity: 0.3; }
+
+    /* Compose bar */
+    .inbox-compose {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      background: rgba(10, 15, 30, 0.8);
+      position: relative;
+    }
+    .inbox-compose-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+    }
+    .inbox-media-preview {
+      display: none;
+      padding: 10px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+    }
+    .inbox-media-preview.active { display: flex; }
+    .inbox-media-preview img { max-height: 60px; max-width: 60px; border-radius: 4px; object-fit: cover; }
+    .inbox-attach-btn {
+      background: none; border: none; color: var(--text-dim); cursor: pointer;
+      padding: 8px; border-radius: 8px; transition: all 0.2s;
+    }
+    .inbox-attach-btn:hover { color: var(--primary); background: rgba(255,255,255,0.05); }
+    .media-fetch-btn {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; padding: 6px 12px; border-radius: 6px; cursor: pointer;
+      font-size: 0.75rem; margin-top: 6px; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .media-fetch-btn:hover { background: rgba(255,255,255,0.15); }
+    .media-rendered-img { max-width: 100%; border-radius: 8px; margin-top: 8px; }
+    .inbox-compose-input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      color: #fff;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      resize: none;
+      max-height: 80px;
+    }
+    .inbox-compose-input:focus { border-color: var(--primary); }
+    .inbox-send-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .inbox-send-btn:hover { transform: scale(1.05); }
+
+    /* New Chat Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #111827;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 30px;
+      width: 420px;
+      max-width: 90vw;
+    }
+    .modal-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="blob blob-primary"></div>
+  <div class="blob blob-accent"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="brand-logo">
+          <i data-lucide="send"></i>
+        </div>
+        <div>
+          <div class="brand-title">Evolution API Sender</div>
+          <div class="brand-subtitle">RD Models Operations Dashboard</div>
+        </div>
+      </div>
+      <div class="status-badge">
+        <div class="status-dot" id="server-status-dot"></div>
+        <span id="server-status-text">Server Connected</span>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="main-grid">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <button class="nav-btn active" onclick="switchTab(event, 'inbox-tab')">
+          <i data-lucide="inbox"></i> Inbox
+        </button>
+        <button class="nav-btn" onclick="switchTab(event, 'single-tab')">
+          <i data-lucide="message-square"></i> Single Sender
+        </button>
+        <button class="nav-btn" onclick="switchTab(event, 'bulk-tab')">
+          <i data-lucide="users"></i> Bulk CSV Sender
+        </button>
+        <button class="nav-btn" onclick="switchTab(event, 'toolkit-tab')">
+          <i data-lucide="terminal"></i> PowerShell Toolkit
+        </button>
+        <button class="nav-btn" onclick="switchTab(event, 'settings-tab')">
+          <i data-lucide="settings"></i> API & Host Settings
+        </button>
+      </aside>
+
+      <!-- Workspace Content -->
+      <main class="workspace">
+        
+        <!-- View 0: INBOX -->
+        <div id="inbox-tab" class="tab-content card" style="padding: 0; overflow: hidden;">
+          <div class="inbox-layout">
+            <!-- Left: Chat List -->
+            <div class="inbox-contacts">
+              <div class="inbox-contacts-header">
+                <input type="text" class="inbox-search" id="inbox-search" placeholder="Search chats..." oninput="filterInboxChats()">
+                <button class="inbox-new-btn" title="New Chat" onclick="openNewChatModal()">
+                  <i data-lucide="plus" style="width:20px;height:20px;"></i>
+                </button>
+              </div>
+              <div class="inbox-chat-list" id="inbox-chat-list">
+                <div class="inbox-empty" id="inbox-loading">
+                  <i data-lucide="loader" class="spin"></i>
+                  <div style="font-size:0.85rem;">Loading chats...</div>
+                </div>
+              </div>
+            </div>
+            <!-- Right: Thread -->
+            <div class="inbox-thread">
+              <div id="inbox-thread-placeholder" class="inbox-empty">
+                <i data-lucide="message-circle"></i>
+                <div style="font-size:1rem; font-weight:600;">Select a chat to start messaging</div>
+                <div style="font-size:0.8rem;">Or click + to start a new conversation</div>
+              </div>
+              <div id="inbox-thread-active" style="display:none; flex-direction:column; height:100%; overflow: hidden;">
+                <div class="inbox-thread-header">
+                  <div class="inbox-avatar" id="inbox-active-avatar">?</div>
+                  <div>
+                    <div class="inbox-thread-name" id="inbox-active-name">Contact</div>
+                    <div class="inbox-thread-number" id="inbox-active-number">number</div>
+                  </div>
+                  <button class="btn btn-secondary" style="margin-left:auto; padding:8px 14px; font-size:0.75rem;" onclick="refreshActiveThread()">
+                    <i data-lucide="refresh-cw" style="width:14px;height:14px;"></i> Refresh
+                  </button>
+                </div>
+                <div class="inbox-messages" id="inbox-messages"></div>
+                <div class="inbox-compose">
+                  <div class="inbox-media-preview" id="inbox-media-preview">
+                    <div id="media-preview-icon"><i data-lucide="file"></i></div>
+                    <div style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" id="media-preview-name">filename.jpg</div>
+                    <button class="btn btn-secondary" style="padding:4px 8px;" onclick="removeMedia()"><i data-lucide="x" style="width:14px;height:14px;"></i></button>
+                  </div>
+                  <div class="inbox-compose-row">
+                    <button class="inbox-attach-btn" onclick="document.getElementById('inbox-media-file').click()" title="Attach File">
+                      <i data-lucide="paperclip" style="width:20px;height:20px;"></i>
+                    </button>
+                    <input type="file" id="inbox-media-file" style="display:none;" onchange="handleMediaSelect(event)" accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.xls,.xlsx,.txt">
+                    <textarea class="inbox-compose-input" id="inbox-compose-text" placeholder="Type a message or caption..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendInboxReply()}"></textarea>
+                    <button class="inbox-send-btn" onclick="sendInboxReply()" id="inbox-send-btn">
+                      <i data-lucide="send" style="width:20px;height:20px;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- New Chat Modal -->
+        <div class="modal-overlay" id="new-chat-modal">
+          <div class="modal-box">
+            <div class="modal-title"><i data-lucide="message-square-plus" style="width:22px;height:22px;color:var(--primary);vertical-align:middle;"></i> New Conversation</div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="text" id="new-chat-number" class="form-input" style="padding-left:16px;" placeholder="918302806913">
+              <div class="input-hint">Format: 91 + mobile (e.g. 918302806913)</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">First Message</label>
+              <textarea id="new-chat-text" class="form-textarea" style="min-height:80px;" placeholder="Type your message..."></textarea>
+            </div>
+            <div style="display:flex;gap:12px;">
+              <button class="btn" onclick="sendNewChat()"><i data-lucide="send"></i> Send</button>
+              <button class="btn btn-secondary" onclick="closeNewChatModal()">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- View 1: Single Message Sender -->
+        <div id="single-tab" class="tab-content card" style="display:none;">
+          <div class="card-title">
+            <i data-lucide="message-square"></i> Send Single Text Message
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Recipient Number</label>
+            <div class="input-wrapper">
+              <i data-lucide="phone"></i>
+              <input type="text" id="single-number" class="form-input" placeholder="918302806913" value="918302806913">
+            </div>
+            <div class="input-hint">Format: 91 + mobile number (e.g., 918302806913)</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Message Text</label>
+            <textarea id="single-text" class="form-textarea" placeholder="Enter your message here...">Hello, ye Evolution API se test message hai.</textarea>
+            <div class="input-hint" id="char-counter">Characters: 46</div>
+          </div>
+
+          <button id="btn-send-single" class="btn" onclick="sendSingleMessage()">
+            <i data-lucide="send"></i> Send Message
+          </button>
+        </div>
+
+        <!-- View 2: Bulk CSV Sender -->
+        <div id="bulk-tab" class="tab-content card" style="display: none;">
+          <div class="card-title">
+            <i data-lucide="users"></i> Bulk Messaging Campaign
+          </div>
+
+          <!-- Drag and Drop Zone -->
+          <div class="dropzone" id="csv-dropzone" onclick="document.getElementById('csv-file-input').click()">
+            <i data-lucide="file-spreadsheet"></i>
+            <div class="dropzone-title">Upload your numbers.csv file</div>
+            <div class="dropzone-desc">Drag & Drop or Click to Browse. File must have 'number' and 'text' columns.</div>
+            <input type="file" id="csv-file-input" style="display: none;" accept=".csv" onchange="handleCsvFile(this.files[0])">
+          </div>
+
+          <div style="margin: 20px 0; text-align: center; color: var(--text-dim); font-weight: 800; font-size: 0.8rem; letter-spacing: 2px;">OR ENTER MANUALLY</div>
+
+          <div class="form-group" style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color);">
+            <div class="form-group">
+              <label class="form-label"><i data-lucide="list-ordered" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:5px;"></i> Number List</label>
+              <textarea id="manual-numbers" class="form-textarea" style="min-height:80px;" placeholder="8302806913, 8302829246, 918239544970 (comma or newline separated)">8302806913, 8302829246, 918239544970</textarea>
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+              <label class="form-label"><i data-lucide="message-square" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:5px;"></i> Common Message</label>
+              <textarea id="manual-message" class="form-textarea" style="min-height:60px;" placeholder="Type your bulk message here...">Hello, this is a test message from Evolution Sender!</textarea>
+            </div>
+            <button class="btn btn-secondary" style="width:100%" onclick="loadManualList()">
+              <i data-lucide="download-cloud" style="width:16px;height:16px;"></i> Load Manual Numbers
+            </button>
+          </div>
+
+          <!-- Campaign Monitor (shows when CSV loaded) -->
+          <div id="campaign-monitor" style="display: none; margin-top: 30px;">
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <div class="metric-label">Total Loaded</div>
+                <div class="metric-val" id="m-total">0</div>
+              </div>
+              <div class="metric-card" style="border-color: rgba(99, 102, 241, 0.2);">
+                <div class="metric-label">Progress</div>
+                <div class="metric-val" id="m-progress">0%</div>
+              </div>
+              <div class="metric-card" style="border-color: rgba(16, 185, 129, 0.2);">
+                <div class="metric-label">Sent Successfully</div>
+                <div class="metric-val" style="color: var(--success);" id="m-sent">0</div>
+              </div>
+              <div class="metric-card" style="border-color: rgba(244, 63, 94, 0.2);">
+                <div class="metric-label">Failed / Skipped</div>
+                <div class="metric-val" style="color: var(--error);" id="m-failed">0</div>
+              </div>
+            </div>
+
+            <div class="progress-container">
+              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600;">
+                <span id="campaign-progress-label">Pending start...</span>
+                <span id="campaign-percentage">0%</span>
+              </div>
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="campaign-progress-bar"></div>
+              </div>
+            </div>
+
+            <!-- Configuration & Delays -->
+            <div class="form-group" style="margin-bottom: 25px;">
+              <label class="form-label">Safe Send Delay</label>
+              <div class="slider-container">
+                <div class="slider-header">
+                  <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Delay between sends (Seconds)</span>
+                  <span class="slider-val" id="delay-val">10s</span>
+                </div>
+                <input type="range" id="campaign-delay" class="form-range" min="8" max="30" value="10" oninput="document.getElementById('delay-val').innerText = this.value + 's'">
+              </div>
+              <div class="input-hint" style="color: var(--warning);">⚠️ Keeping delay 8-15 seconds is highly recommended to protect your number.</div>
+            </div>
+
+            <div style="display: flex; gap: 15px; margin-bottom: 30px;">
+              <button id="btn-start-campaign" class="btn btn-success" onclick="startCampaign()">
+                <i data-lucide="play"></i> Start Campaign
+              </button>
+              <button id="btn-stop-campaign" class="btn btn-danger" onclick="stopCampaign()" disabled>
+                <i data-lucide="square"></i> Stop Campaign
+              </button>
+              <button id="btn-clear-campaign" class="btn btn-secondary" onclick="clearCampaign()">
+                <i data-lucide="refresh-cw"></i> Clear List
+              </button>
+            </div>
+
+            <!-- CSV Table View -->
+            <div class="card-title" style="font-size: 1.1rem; margin-bottom: 12px;">
+              <i data-lucide="list"></i> CSV Record List
+            </div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Row</th>
+                    <th>Number</th>
+                    <th>Text Message</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="csv-table-body">
+                  <!-- Dynamic rows here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- View 3: PowerShell Toolkit -->
+        <div id="toolkit-tab" class="tab-content card" style="display: none;">
+          <div class="card-title">
+            <i data-lucide="terminal"></i> Local PowerShell Script Generator
+          </div>
+          
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 25px;">
+            If you prefer running commands directly from your local terminal or Windows PowerShell, you can download these fully generated, pre-configured PowerShell scripts. They are automatically built with your active host, API token, and settings!
+          </p>
+
+          <div class="ps-card">
+            <div style="font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="file-code" style="color: var(--primary);"></i> Single Message Script
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 6px;">Sends a single test message instantly with custom configurations.</p>
+            <div class="ps-code-box">
+              <button class="copy-btn" onclick="copyCode('code-single')">Copy</button>
+              <pre id="code-single">Invoke-RestMethod -Uri "https://..." -Method Post -Headers $headers -Body $body</pre>
+            </div>
+            <button class="btn btn-secondary" onclick="downloadScript('single')">
+              <i data-lucide="download"></i> Download send_single_message.ps1
+            </button>
+          </div>
+
+          <div class="ps-card">
+            <div style="font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="files" style="color: var(--primary);"></i> Bulk Sending Script
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 6px;">Loops over local <code style="color: var(--primary);">numbers.csv</code> file, applying custom delays between sends.</p>
+            <div class="ps-code-box">
+              <button class="copy-btn" onclick="copyCode('code-bulk')">Copy</button>
+              <pre id="code-bulk">Import-Csv ".\numbers.csv" | ForEach-Object { ... Start-Sleep -Seconds 10 }</pre>
+            </div>
+            <button class="btn btn-secondary" onclick="downloadScript('bulk')">
+              <i data-lucide="download"></i> Download send_bulk_messages.ps1
+            </button>
+          </div>
+        </div>
+
+        <!-- View 4: API & Host Settings -->
+        <div id="settings-tab" class="tab-content card" style="display: none;">
+          <div class="card-title">
+            <i data-lucide="settings"></i> API Connection Configuration
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Evolution API Endpoint URL</label>
+            <div class="input-wrapper">
+              <i data-lucide="globe"></i>
+              <input type="text" id="settings-host" class="form-input" placeholder="https://evolution-api-production-98d3.up.railway.app">
+            </div>
+            <div class="input-hint">Base URL of your deployed Railway instance. Do not include ending slashes.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Authentication API Key (apikey)</label>
+            <div class="input-wrapper">
+              <i data-lucide="key"></i>
+              <input type="password" id="settings-key" class="form-input" placeholder="Railway AUTHENTICATION_API_KEY">
+            </div>
+            <div class="input-hint">Your API Key is kept safe on the backend. Hover/click to update.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Default Instance Name</label>
+            <div class="input-wrapper">
+              <i data-lucide="layers"></i>
+              <input type="text" id="settings-instance" class="form-input" placeholder="Business Growth Technology">
+            </div>
+            <div class="input-hint">Specify the WhatsApp instance name (e.g. <code>Business Growth Technology</code> or <code>bgt</code>)</div>
+          </div>
+
+          <div style="display: flex; gap: 15px; margin-top: 25px;">
+            <button class="btn" onclick="saveSettings()">
+              <i data-lucide="save"></i> Save Settings
+            </button>
+            <button class="btn btn-secondary" onclick="testConnection()">
+              <i data-lucide="shield-check"></i> Test Connection
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Terminal Log Console (Global) -->
+        <div class="terminal">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <div class="terminal-dot td-red"></div>
+              <div class="terminal-dot td-yellow"></div>
+              <div class="terminal-dot td-green"></div>
+            </div>
+            <div class="terminal-title">Live Server Proxy Output</div>
+            <div style="cursor: pointer;" onclick="clearConsole()"><i data-lucide="trash-2" style="width: 14px; height: 14px;"></i></div>
+          </div>
+          <div class="terminal-logs" id="terminal-logs-container">
+            <div class="log-line log-info">[SYSTEM] Initializing console proxy... Connection established.</div>
+            <div class="log-line log-info">[SYSTEM] Ready to send messages via Evolution API.</div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Initialize icons
+    lucide.createIcons();
+
+    // Active configuration cache
+    let activeConfig = {
+      host: '',
+      apiKey: '',
+      instance: ''
+    };
+
+    // CSV Records Cache
+    let loadedCsvItems = [];
+    let campaignPoller = null;
+
+    // Inbox state
+    let inboxChats = [];
+    let activeJid = null;
+    let inboxPoller = null;
+
+    // Load setup configurations on launch
+    window.addEventListener('load', async () => {
+      await fetchSettings();
+      setupCharCounter();
+      setupDragDrop();
+      updatePowerShellPreviews();
+      loadInboxChats();
+      
+      // Start regular status polling
+      setInterval(checkStatus, 3000);
+      checkStatus();
+      
+      // Auto-sync inbox list
+      setInterval(() => loadInboxChats(true), 8000);
+    });
+
+    // Handle Character Counter
+    function setupCharCounter() {
+      const txt = document.getElementById('single-text');
+      const cnt = document.getElementById('char-counter');
+      txt.addEventListener('input', () => {
+        cnt.innerText = `Characters: ${txt.value.length}`;
+      });
+    }
+
+    // Switch between tabs
+    function switchTab(evt, tabId) {
+      document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById(tabId).style.display = 'block';
+      evt.currentTarget.classList.add('active');
+    }
+
+    // Fetch configurations from backend
+    async function fetchSettings() {
+      try {
+        const res = await fetch('/api/settings');
+        const data = await res.json();
+        
+        activeConfig = data;
+        
+        document.getElementById('settings-host').value = data.host;
+        document.getElementById('settings-key').value = data.apiKey;
+        document.getElementById('settings-instance').value = data.instance;
+        
+        updatePowerShellPreviews();
+      } catch (err) {
+        logToTerminal(`Failed to retrieve server configurations: ${err.message}`, 'error');
+      }
+    }
+
+    // Update dynamically shown PowerShell code snippets
+    function updatePowerShellPreviews() {
+      const urlEncoded = encodeURIComponent(activeConfig.instance || 'Business Growth Technology');
+      const url = `${activeConfig.host || 'https://...'}/message/sendText/${urlEncoded}`;
+      
+      const singlePs = `$headers = @{
+  "apikey" = "${activeConfig.apiKey ? '•'.repeat(15) : 'YOUR_API_KEY'}"
+  "Content-Type" = "application/json"
+}
+
+$body = @{
+  number = "918302806913"
+  textMessage = @{
+    text = "Hello, ye Evolution API se test message hai."
+  }
+} | ConvertTo-Json -Depth 5
+
+Invoke-RestMethod \`
+  -Uri "${url}" \`
+  -Method Post \`
+  -Headers $headers \`
+  -Body $body`;
+
+      const bulkPs = `$headers = @{
+  "apikey" = "${activeConfig.apiKey ? '•'.repeat(15) : 'YOUR_API_KEY'}"
+  "Content-Type" = "application/json"
+}
+
+Import-Csv ".\\numbers.csv" | ForEach-Object {
+  $body = @{
+    number = $_.number
+    textMessage = @{ text = $_.text }
+  } | ConvertTo-Json -Depth 5
+
+  Invoke-RestMethod \`
+    -Uri "${url}" \`
+    -Method Post \`
+    -Headers $headers \`
+    -Body $body
+
+  Start-Sleep -Seconds 10
+}`;
+
+      document.getElementById('code-single').innerText = singlePs;
+      document.getElementById('code-bulk').innerText = bulkPs;
+    }
+
+    // Save Settings
+    async function saveSettings() {
+      const host = document.getElementById('settings-host').value.trim();
+      const apiKey = document.getElementById('settings-key').value.trim();
+      const instance = document.getElementById('settings-instance').value.trim();
+
+      if (!host || !apiKey || !instance) {
+        alert('All configuration fields are mandatory.');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/settings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ host, apiKey, instance })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+          logToTerminal('Settings successfully updated.', 'success');
+          alert('Settings successfully updated!');
+          await fetchSettings();
+        } else {
+          alert('Failed saving settings: ' + data.error);
+        }
+      } catch (err) {
+        logToTerminal(`Save error: ${err.message}`, 'error');
+      }
+    }
+
+    // Test API connection
+    async function testConnection() {
+      const host = document.getElementById('settings-host').value.trim();
+      const apiKey = document.getElementById('settings-key').value.trim();
+      const instance = document.getElementById('settings-instance').value.trim();
+
+      logToTerminal(`Testing API Connection to host: ${host}...`, 'info');
+      
+      const urlEncoded = encodeURIComponent(instance);
+      // Endpoint to fetch instance status in Evolution API
+      const testUrl = `${host}/instance/connectionState/${urlEncoded}`;
+      
+      try {
+        const res = await fetch(testUrl, {
+          headers: { 'apikey': apiKey }
+        });
+        
+        if (res.status === 200) {
+          const body = await res.json();
+          logToTerminal(`Connection SUCCESS. Instance is fully initialized. Details: ${JSON.stringify(body.instance)}`, 'success');
+          alert('Successfully connected to Evolution API! Instance is verified.');
+        } else {
+          const text = await res.text();
+          logToTerminal(`Connection Refused. Host returned HTTP ${res.status}. Response: ${text}`, 'error');
+          alert(`Connection Refused (HTTP ${res.status}). Verify your Instance Name and apikey.`);
+        }
+      } catch (err) {
+        logToTerminal(`Connection Check Failed: ${err.message}`, 'error');
+        alert(`Connection Failed: ${err.message}. Make sure your local system has internet access.`);
+      }
+    }
+
+    // Single message sender
+    async function sendSingleMessage() {
+      const number = document.getElementById('single-number').value.trim();
+      const text = document.getElementById('single-text').value.trim();
+      const btn = document.getElementById('btn-send-single');
+
+      if (!number || !text) {
+        alert('Please fill out both recipient number and text message.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i data-lucide="loader" class="spin"></i> Sending Message...';
+      lucide.createIcons();
+
+      try {
+        const res = await fetch('/api/send-single', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            number,
+            text,
+            apiKey: activeConfig.apiKey,
+            instance: activeConfig.instance,
+            host: activeConfig.host
+          })
+        });
+        
+        const data = await res.json();
+        
+        if (res.ok && data.success) {
+          logToTerminal(`Message successfully delivered to ${number}.`, 'success');
+          alert('✓ Message successfully sent!');
+        } else {
+          logToTerminal(`API error sending to ${number}: ${data.error}`, 'error');
+          alert('✗ Sending failed: ' + data.error);
+        }
+      } catch (err) {
+        logToTerminal(`Failed to connect to backend proxy: ${err.message}`, 'error');
+        alert('✗ Network/proxy failure: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i data-lucide="send"></i> Send Message';
+        lucide.createIcons();
+      }
+    }
+
+    // Setup drag and drop for CSV uploader
+    function setupDragDrop() {
+      const zone = document.getElementById('csv-dropzone');
+      
+      zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        zone.style.borderColor = 'var(--primary)';
+        zone.style.background = 'rgba(99, 102, 241, 0.08)';
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+        zone.style.background = 'rgba(0, 0, 0, 0.15)';
+      });
+
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+        zone.style.background = 'rgba(0, 0, 0, 0.15)';
+        
+        if (e.dataTransfer.files.length > 0) {
+          handleCsvFile(e.dataTransfer.files[0]);
+        }
+      });
+    }
+
+    // Process uploaded CSV file
+    async function handleCsvFile(file) {
+      if (!file) return;
+      if (!file.name.endsWith('.csv')) {
+        alert('Only CSV format files (.csv) are supported.');
+        return;
+      }
+
+      logToTerminal(`Uploading bulk contacts file: ${file.name}...`, 'info');
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const res = await fetch('/api/upload-csv', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+          loadedCsvItems = data.data;
+          logToTerminal(`Successfully parsed CSV. Loaded ${data.count} contacts.`, 'success');
+          
+          document.getElementById('campaign-monitor').style.display = 'block';
+          document.getElementById('m-total').innerText = loadedCsvItems.length;
+          
+          renderCsvTable();
+          updateCampaignMetrics(0, 0, loadedCsvItems.length);
+        } else {
+          alert('CSV parsing failed: ' + data.error);
+        }
+      } catch (err) {
+        logToTerminal(`CSV processing failure: ${err.message}`, 'error');
+        alert('CSV upload failed: ' + err.message);
+      }
+    }
+
+    // Render loaded CSV grid
+    function renderCsvTable() {
+      const tbody = document.getElementById('csv-table-body');
+      tbody.innerHTML = '';
+      
+      loadedCsvItems.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.id = `row-${item.id}`;
+        
+        const badgeClass = `badge-${item.status}`;
+        
+        tr.innerHTML = `
+          <td style="color: var(--text-dim); font-weight: bold; width: 60px;">#${item.id}</td>
+          <td style="font-weight: 600; width: 140px;">${item.number || '<span style="color: var(--error);">No Number</span>'}</td>
+          <td style="word-break: break-all;">${item.text}</td>
+          <td style="width: 100px;"><span class="badge ${badgeClass}" id="badge-${item.id}">${item.status}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Load manual numbers into CSV state
+    function loadManualList() {
+      const numsStr = document.getElementById('manual-numbers').value;
+      const textStr = document.getElementById('manual-message').value;
+      
+      if (!numsStr.trim() || !textStr.trim()) {
+        alert("Please provide both numbers and a message.");
+        return;
+      }
+
+      // split by comma or newline
+      const rawNumbers = numsStr.split(/[\n,]+/).map(n => n.trim()).filter(n => n.length > 0);
+      if (rawNumbers.length === 0) return;
+
+      loadedCsvItems = rawNumbers.map((n, i) => {
+        let clean = n.replace(/[^0-9]/g, '');
+        if (clean.length === 10) clean = '91' + clean; // Auto prepend India code if 10 digits
+        
+        return {
+          id: i + 1,
+          originalNumber: n,
+          number: clean,
+          text: textStr,
+          status: clean ? 'pending' : 'invalid'
+        };
+      });
+
+      logToTerminal(`Successfully parsed ${loadedCsvItems.length} manual contacts.`, 'success');
+      document.getElementById('campaign-monitor').style.display = 'block';
+      document.getElementById('m-total').innerText = loadedCsvItems.length;
+      
+      renderCsvTable();
+      updateCampaignMetrics(0, 0, loadedCsvItems.length);
+      lucide.createIcons();
+    }
+
+    // Start Campaign Execution
+    async function startCampaign() {
+      const delay = parseInt(document.getElementById('campaign-delay').value);
+      
+      logToTerminal(`Initiating bulk messaging campaign with ${loadedCsvItems.length} items. Delay: ${delay}s`, 'info');
+
+      try {
+        const res = await fetch('/api/campaign/start', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items: loadedCsvItems,
+            delay,
+            apiKey: activeConfig.apiKey,
+            instance: activeConfig.instance,
+            host: activeConfig.host
+          })
+        });
+        
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('btn-start-campaign').disabled = true;
+          document.getElementById('btn-stop-campaign').disabled = false;
+          document.getElementById('btn-clear-campaign').disabled = true;
+          
+          // Begin polling status
+          if (campaignPoller) clearInterval(campaignPoller);
+          campaignPoller = setInterval(pollCampaignStatus, 1000);
+        } else {
+          alert('Failed to start campaign: ' + data.error);
+        }
+      } catch (err) {
+        alert('Campaign start error: ' + err.message);
+      }
+    }
+
+    // Stop Campaign Execution
+    async function stopCampaign() {
+      try {
+        const res = await fetch('/api/campaign/stop', { method: 'POST' });
+        const data = await res.json();
+        
+        if (data.success) {
+          document.getElementById('btn-start-campaign').disabled = false;
+          document.getElementById('btn-stop-campaign').disabled = true;
+          document.getElementById('btn-clear-campaign').disabled = false;
+          
+          if (campaignPoller) {
+            clearInterval(campaignPoller);
+            campaignPoller = null;
+          }
+          logToTerminal('Campaign gracefully aborted by operator.', 'warn');
+        }
+      } catch (err) {
+        logToTerminal(`Failed stopping campaign: ${err.message}`, 'error');
+      }
+    }
+
+    // Poll current bulk state
+    async function pollCampaignStatus() {
+      try {
+        const res = await fetch('/api/campaign/status');
+        const data = await res.json();
+        
+        // Update items states in cache and DOM table
+        data.items.forEach(item => {
+          const cached = loadedCsvItems.find(i => i.id === item.id);
+          if (cached && cached.status !== item.status) {
+            cached.status = item.status;
+            const badge = document.getElementById(`badge-${item.id}`);
+            if (badge) {
+              badge.className = `badge badge-${item.status}`;
+              badge.innerText = item.status;
+              
+              // Scroll table row into view if it's currently active
+              if (item.status === 'sending' || item.status === 'sent') {
+                const tr = document.getElementById(`row-${item.id}`);
+                if (tr) tr.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }
+            }
+          }
+        });
+
+        // Parse logs to screen
+        data.logs.forEach(log => {
+          // Prevent showing duplicate logs by checking terminal
+          const container = document.getElementById('terminal-logs-container');
+          if (!container.innerText.includes(log)) {
+            // Extract type
+            let type = 'info';
+            if (log.includes('[SUCCESS]')) type = 'success';
+            if (log.includes('[WARN]')) type = 'warn';
+            if (log.includes('[ERROR]')) type = 'error';
+            logToTerminal(log.substring(log.indexOf(']') + 2), type);
+          }
+        });
+
+        const progressPercent = Math.round(((data.sent + data.failed) / data.total) * 100) || 0;
+        updateCampaignMetrics(data.sent, data.failed, data.total, progressPercent);
+
+        if (data.status === 'completed' || data.status === 'stopped') {
+          document.getElementById('btn-start-campaign').disabled = false;
+          document.getElementById('btn-stop-campaign').disabled = true;
+          document.getElementById('btn-clear-campaign').disabled = false;
+          
+          if (campaignPoller) {
+            clearInterval(campaignPoller);
+            campaignPoller = null;
+          }
+          
+          logToTerminal(`Campaign process finished. Status: ${data.status.toUpperCase()}`, 'info');
+        }
+      } catch (err) {
+        console.error('Status poll error:', err);
+      }
+    }
+
+    // UI Updates
+    function updateCampaignMetrics(sent, failed, total, percent = 0) {
+      document.getElementById('m-sent').innerText = sent;
+      document.getElementById('m-failed').innerText = failed;
+      document.getElementById('m-progress').innerText = `${percent}%`;
+      document.getElementById('campaign-percentage').innerText = `${percent}%`;
+      document.getElementById('campaign-progress-bar').style.width = `${percent}%`;
+      
+      const remaining = total - (sent + failed);
+      document.getElementById('campaign-progress-label').innerText = 
+        percent === 100 ? 'Campaign Completed!' : `Processing items: ${sent + failed} processed, ${remaining} remaining...`;
+    }
+
+    // Clear list
+    function clearCampaign() {
+      loadedCsvItems = [];
+      document.getElementById('campaign-monitor').style.display = 'none';
+      document.getElementById('csv-file-input').value = '';
+      logToTerminal('Campaign data list cleared.', 'info');
+    }
+
+    // Copy terminal scripts helper
+    function copyCode(id) {
+      const code = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        alert('PowerShell code copied to clipboard!');
+      });
+    }
+
+    // Trigger local scripts download
+    function downloadScript(type) {
+      const delay = document.getElementById('campaign-delay')?.value || 10;
+      const url = `/api/download-${type}-script?apiKey=${activeConfig.apiKey}&instance=${encodeURIComponent(activeConfig.instance)}&host=${activeConfig.host}&delay=${delay}`;
+      window.location.href = url;
+    }
+
+    // Write terminal logs to the HTML frame
+    function logToTerminal(message, type = 'info') {
+      const container = document.getElementById('terminal-logs-container');
+      const line = document.createElement('div');
+      line.className = `log-line log-${type}`;
+      
+      const timestamp = new Date().toLocaleTimeString();
+      line.innerText = `[${timestamp}] [${type.toUpperCase()}] ${message}`;
+      
+      container.appendChild(line);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function clearConsole() {
+      document.getElementById('terminal-logs-container').innerHTML = '';
+      logToTerminal('Terminal console cleared.', 'info');
+    }
+
+    // Regular health check for backend server
+    async function checkStatus() {
+      const dot = document.getElementById('server-status-dot');
+      const txt = document.getElementById('server-status-text');
+      
+      try {
+        const res = await fetch('/api/settings');
+        if (res.ok) {
+          dot.style.backgroundColor = 'var(--success)';
+          dot.style.boxShadow = '0 0 10px var(--success)';
+          txt.innerText = 'Server Connected';
+        } else {
+          throw new Error('Offline');
+        }
+      } catch (err) {
+        dot.style.backgroundColor = 'var(--error)';
+        dot.style.boxShadow = '0 0 10px var(--error)';
+        txt.innerText = 'Server Disconnected';
+      }
+    }
+
+    // =============================================
+    // INBOX FUNCTIONS
+    // =============================================
+
+    function extractName(chat) {
+      if (chat.name && chat.name !== chat.id) return chat.name;
+      if (chat.pushName) return chat.pushName;
+      const jid = chat.id || chat.remoteJid || '';
+      return jid.replace('@s.whatsapp.net', '').replace('@g.us', '');
+    }
+
+    function extractNumber(chat) {
+      const jid = chat.id || chat.remoteJid || '';
+      return jid.replace('@s.whatsapp.net', '').replace('@g.us', '').replace('@lid', '');
+    }
+
+    function extractJid(chat) {
+      return chat.remoteJid || chat.id || '';
+    }
+
+    function getInitials(name) {
+      if (!name) return '?';
+      const parts = name.trim().split(/\s+/);
+      if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+      return name.substring(0, 2).toUpperCase();
+    }
+
+    function formatTime(ts) {
+      if (!ts) return '';
+      let d;
+      if (typeof ts === 'number') {
+        d = ts > 1e12 ? new Date(ts) : new Date(ts * 1000);
+      } else {
+        d = new Date(ts);
+      }
+      if (isNaN(d.getTime())) return '';
+      const now = new Date();
+      const isToday = d.toDateString() === now.toDateString();
+      if (isToday) {
+        return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+      return d.toLocaleDateString([], { day: 'numeric', month: 'short' });
+    }
+
+    async function loadInboxChats(silent = false) {
+      const listEl = document.getElementById('inbox-chat-list');
+      if (!silent && inboxChats.length === 0) {
+        listEl.innerHTML = '<div class="inbox-empty" id="inbox-loading"><i data-lucide="loader" class="spin"></i><div style="font-size:0.85rem;">Loading chats...</div></div>';
+        lucide.createIcons();
+      }
+      try {
+        const res = await fetch('/api/inbox/chats', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+        const data = await res.json();
+        if (data.success && Array.isArray(data.data)) {
+          inboxChats = data.data.filter(c => {
+            const jid = c.id || c.remoteJid || '';
+            // Include personal chats (@s.whatsapp.net and @lid), exclude groups (@g.us)
+            return !jid.includes('@g.us') && !jid.includes('status@broadcast');
+          });
+          renderChatList(inboxChats);
+          logToTerminal(`Inbox loaded: ${inboxChats.length} chats found.`, 'success');
+        } else {
+          listEl.innerHTML = '<div class="inbox-empty"><div style="font-size:0.85rem;">Could not load chats</div></div>';
+          logToTerminal('Inbox: failed to load chats - ' + (data.error || 'Unknown'), 'error');
+        }
+      } catch (err) {
+        listEl.innerHTML = '<div class="inbox-empty"><div style="font-size:0.85rem;">Server error</div></div>';
+        logToTerminal('Inbox error: ' + err.message, 'error');
+      }
+    }
+
+    function renderChatList(chats) {
+      const listEl = document.getElementById('inbox-chat-list');
+      if (chats.length === 0) {
+        listEl.innerHTML = '<div class="inbox-empty"><i data-lucide="message-circle"></i><div style="font-size:0.85rem;">No chats yet</div></div>';
+        lucide.createIcons();
+        return;
+      }
+      let html = '';
+      chats.forEach(chat => {
+        const jid = chat.remoteJid || chat.id || '';
+        const name = extractName(chat);
+        const number = extractNumber(chat);
+        const initials = getInitials(name);
+        const ts = chat.updatedAt || chat.createdAt || '';
+        const timeStr = formatTime(ts);
+        const isActive = jid === activeJid ? 'active' : '';
+        // Extract last message preview
+        let preview = '+' + number;
+        if (chat.lastMessage) {
+          const lm = chat.lastMessage;
+          if (lm.messageType === 'conversation' && lm.message) {
+            // message field can be a string or object
+            const msgContent = typeof lm.message === 'string' ? lm.message : (lm.message.conversation || '');
+            if (msgContent) preview = msgContent.substring(0, 50);
+          } else if (lm.messageType) {
+            preview = lm.messageType === 'imageMessage' ? '📷 Image' :
+                     lm.messageType === 'videoMessage' ? '🎥 Video' :
+                     lm.messageType === 'audioMessage' ? '🎵 Audio' :
+                     lm.messageType === 'documentMessage' ? '📄 Document' :
+                     lm.messageType === 'protocolMessage' ? '—' : lm.messageType;
+          }
+        }
+        const safeName = name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        html += `
+          <div class="inbox-chat-item ${isActive}" onclick="openChat('${jid}', '${safeName}', '${number}')" data-jid="${jid}">
+            <div class="inbox-avatar">${initials}</div>
+            <div class="inbox-chat-info">
+              <div class="inbox-chat-name">${name}</div>
+              <div class="inbox-chat-preview">${preview}</div>
+            </div>
+            <div class="inbox-chat-time">${timeStr}</div>
+          </div>`;
+      });
+      listEl.innerHTML = html;
+    }
+
+    function filterInboxChats() {
+      const q = document.getElementById('inbox-search').value.toLowerCase().trim();
+      if (!q) {
+        renderChatList(inboxChats);
+        return;
+      }
+      const filtered = inboxChats.filter(c => {
+        const name = extractName(c).toLowerCase();
+        const num = extractNumber(c);
+        return name.includes(q) || num.includes(q);
+      });
+      renderChatList(filtered);
+    }
+
+    async function openChat(jid, name, number) {
+      activeJid = jid;
+      // Update UI highlights
+      document.querySelectorAll('.inbox-chat-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.jid === jid);
+      });
+      // Show thread
+      document.getElementById('inbox-thread-placeholder').style.display = 'none';
+      const threadEl = document.getElementById('inbox-thread-active');
+      threadEl.style.display = 'flex';
+      document.getElementById('inbox-active-avatar').textContent = getInitials(name);
+      document.getElementById('inbox-active-name').textContent = name;
+      document.getElementById('inbox-active-number').textContent = '+' + number;
+      // Load messages
+      await loadMessages(jid);
+      // Start auto-refresh
+      if (inboxPoller) clearInterval(inboxPoller);
+      inboxPoller = setInterval(() => loadMessages(jid, true), 8000);
+    }
+
+    async function loadMessages(jid, silent = false) {
+      const msgsEl = document.getElementById('inbox-messages');
+      if (!silent) {
+        msgsEl.innerHTML = '<div class="inbox-empty" style="min-height:200px;"><i data-lucide="loader" class="spin"></i></div>';
+        lucide.createIcons();
+      }
+      try {
+        const res = await fetch('/api/inbox/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ remoteJid: jid })
+        });
+        const data = await res.json();
+        if (data.success && Array.isArray(data.data)) {
+          renderMessages(data.data);
+        } else if (!silent) {
+          msgsEl.innerHTML = '<div class="inbox-empty"><div style="font-size:0.85rem;">Could not load messages</div></div>';
+        }
+      } catch (err) {
+        if (!silent) {
+          msgsEl.innerHTML = '<div class="inbox-empty"><div style="font-size:0.85rem;">Error loading messages</div></div>';
+        }
+      }
+    }
+
+    let selectedMediaFile = null;
+
+    function handleMediaSelect(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (file.size > 15 * 1024 * 1024) {
+        logToTerminal('File too large. Max 15MB allowed.', 'error');
+        removeMedia();
+        return;
+      }
+      selectedMediaFile = file;
+      document.getElementById('media-preview-name').innerText = file.name;
+      document.getElementById('inbox-media-preview').classList.add('active');
+      
+      const iconEl = document.getElementById('media-preview-icon');
+      if (file.type.startsWith('image/')) {
+        const url = URL.createObjectURL(file);
+        iconEl.innerHTML = `<img src="${url}" alt="Preview">`;
+      } else {
+        iconEl.innerHTML = '<i data-lucide="file" style="width:24px;height:24px;color:var(--text-dim);"></i>';
+        lucide.createIcons();
+      }
+    }
+
+    function removeMedia() {
+      selectedMediaFile = null;
+      document.getElementById('inbox-media-file').value = '';
+      document.getElementById('inbox-media-preview').classList.remove('active');
+    }
+
+    async function fetchMedia(msgId, messageJsonStr, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '<i data-lucide="loader" class="spin" style="width:14px;height:14px;"></i> Loading...';
+      lucide.createIcons();
+
+      try {
+        const messageObj = JSON.parse(decodeURIComponent(messageJsonStr));
+        const res = await fetch('/api/inbox/media', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: messageObj })
+        });
+        const data = await res.json();
+        if (data.success && data.base64) {
+          const m = messageObj.message || messageObj;
+          let mime = 'image/jpeg';
+          if (m.imageMessage) mime = m.imageMessage.mimetype;
+          else if (m.videoMessage) mime = m.videoMessage.mimetype;
+          else if (m.documentMessage) mime = m.documentMessage.mimetype;
+          else if (m.audioMessage) mime = m.audioMessage.mimetype;
+          
+          const src = `data:${mime};base64,${data.base64}`;
+          if (mime.startsWith('image/')) {
+            container.innerHTML = `<img src="${src}" class="media-rendered-img">`;
+          } else if (mime.startsWith('video/')) {
+            container.innerHTML = `<video src="${src}" controls class="media-rendered-img"></video>`;
+          } else if (mime.startsWith('audio/')) {
+            container.innerHTML = `<audio src="${src}" controls style="max-width:200px; margin-top:8px;"></audio>`;
+          } else {
+            container.innerHTML = `<a href="${src}" download="document" class="media-fetch-btn" style="text-decoration:none;"><i data-lucide="download" style="width:14px;height:14px;"></i> Download Document</a>`;
+            lucide.createIcons();
+          }
+        } else {
+          container.innerHTML = `<span style="color:#ef4444;">Failed to load</span>`;
+        }
+      } catch (err) {
+        container.innerHTML = `<span style="color:#ef4444;">Error</span>`;
+      }
+    }
+
+    function renderMessages(messages) {
+      const msgsEl = document.getElementById('inbox-messages');
+      if (messages.length === 0) {
+        msgsEl.innerHTML = '<div class="inbox-empty" style="min-height:200px;"><div style="font-size:0.85rem;color:var(--text-dim);">No messages yet — send the first one!</div></div>';
+        return;
+      }
+      let html = '';
+      messages.forEach(msg => {
+        const key = msg.key || {};
+        const isSent = key.fromMe === true;
+        const cls = isSent ? 'msg-sent' : 'msg-received';
+        const msgId = msg.id || 'msg_' + Math.random().toString(36).substr(2, 9);
+        
+        let text = '';
+        let mediaHtml = '';
+        const m = msg.message || {};
+        
+        if (m.conversation) text = m.conversation;
+        else if (m.extendedTextMessage && m.extendedTextMessage.text) text = m.extendedTextMessage.text;
+        
+        // Handle media
+        const hasMedia = m.imageMessage || m.videoMessage || m.documentMessage || m.audioMessage;
+        if (hasMedia) {
+          const typeLabel = m.imageMessage ? '📷 Image' : m.videoMessage ? '🎥 Video' : m.documentMessage ? '📄 Document' : '🎵 Audio';
+          const caption = (m.imageMessage?.caption || m.videoMessage?.caption || m.documentMessage?.fileName || '');
+          if (caption) text = caption;
+          
+          // Encoded message string for the fetcher
+          const msgJson = encodeURIComponent(JSON.stringify(msg));
+          const containerId = `media-container-${msgId}`;
+          mediaHtml = `<div id="${containerId}"><button class="media-fetch-btn" onclick="fetchMedia('${msgId}', '${msgJson}', '${containerId}')"><i data-lucide="download" style="width:14px;height:14px;"></i> Load ${typeLabel}</button></div>`;
+        } else if (!text && m.stickerMessage) text = '🏷️ Sticker';
+        else if (!text && m.contactMessage) text = '👤 Contact';
+        else if (!text && m.locationMessage) text = '📍 Location';
+        else if (!text) text = '📎 Unsupported message';
+
+        const ts = msg.messageTimestamp || '';
+        const timeStr = formatTime(ts);
+        const safeText = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+        
+        html += `<div class="msg-bubble ${cls}">
+                   ${mediaHtml}
+                   ${safeText ? `<div>${safeText}</div>` : ''}
+                   <div class="msg-time">${timeStr}</div>
+                 </div>`;
+      });
+      const isScrolledToBottom = msgsEl.scrollHeight - msgsEl.clientHeight <= msgsEl.scrollTop + 50;
+      msgsEl.innerHTML = html;
+      lucide.createIcons();
+      if (isScrolledToBottom) {
+        msgsEl.scrollTop = msgsEl.scrollHeight;
+      }
+    }
+
+    async function sendInboxReply() {
+      const input = document.getElementById('inbox-compose-text');
+      const btn = document.getElementById('inbox-send-btn');
+      const text = input.value.trim();
+      
+      if (!activeJid || (!text && !selectedMediaFile)) return;
+
+      const isLid = activeJid.includes('@lid');
+      const number = isLid ? activeJid : activeJid.replace('@s.whatsapp.net', '');
+      input.value = '';
+      
+      const msgsEl = document.getElementById('inbox-messages');
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      // Optimistic UI
+      const safeText = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+      let previewHtml = '';
+      if (selectedMediaFile) {
+        previewHtml = `<div style="font-size:0.8rem; color:var(--primary); margin-bottom:4px;"><i data-lucide="paperclip" style="width:12px;height:12px;"></i> ${selectedMediaFile.name}</div>`;
+      }
+      msgsEl.innerHTML += `<div class="msg-bubble msg-sent">${previewHtml}<div>${safeText}</div><div class="msg-time">${timeStr} ✓</div></div>`;
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+      lucide.createIcons();
+
+      btn.disabled = true;
+      btn.innerHTML = '<i data-lucide="loader" class="spin" style="width:20px;height:20px;"></i>';
+      lucide.createIcons();
+
+      try {
+        let res;
+        if (selectedMediaFile) {
+          // Send as Media using FormData
+          const fd = new FormData();
+          fd.append('number', number);
+          fd.append('file', selectedMediaFile);
+          if (text) fd.append('caption', text);
+          
+          res = await fetch('/api/inbox/sendMedia', {
+            method: 'POST',
+            body: fd
+          });
+          removeMedia();
+        } else {
+          // Send as Text
+          res = await fetch('/api/inbox/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ number, text })
+          });
+        }
+        
+        const data = await res.json();
+        if (data.success) {
+          logToTerminal(`Inbox: Message sent to +${number}`, 'success');
+        } else {
+          logToTerminal(`Inbox send error: ${data.error}`, 'error');
+        }
+      } catch (err) {
+        logToTerminal(`Inbox API error: ${err.message}`, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i data-lucide="send" style="width:20px;height:20px;"></i>';
+        lucide.createIcons();
+      }
+    }
+
+    function refreshActiveThread() {
+      if (activeJid) loadMessages(activeJid);
+    }
+
+    // New Chat Modal
+    function openNewChatModal() {
+      document.getElementById('new-chat-modal').classList.add('open');
+      document.getElementById('new-chat-number').value = '';
+      document.getElementById('new-chat-text').value = '';
+      document.getElementById('new-chat-number').focus();
+    }
+
+    function closeNewChatModal() {
+      document.getElementById('new-chat-modal').classList.remove('open');
+    }
+
+    async function sendNewChat() {
+      const number = document.getElementById('new-chat-number').value.trim();
+      const text = document.getElementById('new-chat-text').value.trim();
+      if (!number || !text) {
+        alert('Both number and message are required.');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/inbox/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ number, text })
+        });
+        const data = await res.json();
+        if (data.success) {
+          logToTerminal(`New chat: Message sent to +${number}`, 'success');
+          closeNewChatModal();
+          // Reload chats and open the new one
+          await loadInboxChats();
+          const cleanNum = number.replace(/[^0-9]/g, '');
+          const newJid = cleanNum + '@s.whatsapp.net';
+          openChat(newJid, cleanNum, cleanNum);
+        } else {
+          alert('Send failed: ' + data.error);
+          logToTerminal(`New chat error: ${data.error}`, 'error');
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+        logToTerminal(`New chat failed: ${err.message}`, 'error');
+      }
+    }
+
+  </script>
+</body>
+</html>

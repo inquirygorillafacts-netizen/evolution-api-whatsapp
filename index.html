@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
@@ -55,6 +58,7 @@
       z-index: -1;
       opacity: 0.35;
     }
+
     .blob-primary {
       top: -10%;
       left: 10%;
@@ -62,6 +66,7 @@
       height: 450px;
       background: var(--primary);
     }
+
     .blob-accent {
       bottom: 10%;
       right: 15%;
@@ -162,9 +167,20 @@
     }
 
     @keyframes pulse {
-      0% { transform: scale(0.9); opacity: 0.6; }
-      50% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(0.9); opacity: 0.6; }
+      0% {
+        transform: scale(0.9);
+        opacity: 0.6;
+      }
+
+      50% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(0.9);
+        opacity: 0.6;
+      }
     }
 
     /* Main Section */
@@ -281,7 +297,8 @@
       height: 18px;
     }
 
-    .form-input, .form-textarea {
+    .form-input,
+    .form-textarea {
       width: 100%;
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid var(--border-color);
@@ -299,7 +316,8 @@
       min-height: 120px;
     }
 
-    .form-input:focus, .form-textarea:focus {
+    .form-input:focus,
+    .form-textarea:focus {
       border-color: var(--primary);
       box-shadow: 0 0 14px var(--primary-glow);
       background: rgba(0, 0, 0, 0.45);
@@ -562,12 +580,35 @@
       text-transform: uppercase;
     }
 
-    .badge-pending { background: rgba(245, 158, 11, 0.12); color: var(--warning); }
-    .badge-sending { background: rgba(99, 102, 241, 0.12); color: var(--primary); }
-    .badge-processing { background: rgba(56, 189, 248, 0.12); color: #38bdf8; }
-    .badge-sent { background: rgba(16, 185, 129, 0.12); color: var(--success); }
-    .badge-failed { background: rgba(244, 63, 94, 0.12); color: var(--error); }
-    .badge-invalid { background: rgba(100, 116, 139, 0.12); color: var(--text-muted); }
+    .badge-pending {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--warning);
+    }
+
+    .badge-sending {
+      background: rgba(99, 102, 241, 0.12);
+      color: var(--primary);
+    }
+
+    .badge-processing {
+      background: rgba(56, 189, 248, 0.12);
+      color: #38bdf8;
+    }
+
+    .badge-sent {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--success);
+    }
+
+    .badge-failed {
+      background: rgba(244, 63, 94, 0.12);
+      color: var(--error);
+    }
+
+    .badge-invalid {
+      background: rgba(100, 116, 139, 0.12);
+      color: var(--text-muted);
+    }
 
     /* Live Terminal Terminal Console */
     .terminal {
@@ -603,9 +644,18 @@
       height: 10px;
       border-radius: 50%;
     }
-    .td-red { background-color: var(--error); }
-    .td-yellow { background-color: var(--warning); }
-    .td-green { background-color: var(--success); }
+
+    .td-red {
+      background-color: var(--error);
+    }
+
+    .td-yellow {
+      background-color: var(--warning);
+    }
+
+    .td-green {
+      background-color: var(--success);
+    }
 
     .terminal-title {
       font-size: 0.75rem;
@@ -627,10 +677,22 @@
     .log-line {
       word-break: break-all;
     }
-    .log-info { color: #38bdf8; }
-    .log-success { color: #34d399; }
-    .log-warn { color: #fbbf24; }
-    .log-error { color: #f87171; }
+
+    .log-info {
+      color: #38bdf8;
+    }
+
+    .log-success {
+      color: #34d399;
+    }
+
+    .log-warn {
+      color: #fbbf24;
+    }
+
+    .log-error {
+      color: #f87171;
+    }
 
     /* PowerShell Card styles */
     .ps-card {
@@ -678,8 +740,13 @@
     }
 
     @keyframes rotating {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     /* ===== INBOX STYLES ===== */
@@ -690,9 +757,15 @@
       border-radius: 20px;
       overflow: hidden;
       border: 1px solid var(--border-color);
-      background: rgba(0,0,0,0.3);
+      background: rgba(0, 0, 0, 0.3);
     }
-    @media(max-width:900px) { .inbox-layout { grid-template-columns: 1fr; height: auto; } }
+
+    @media(max-width:900px) {
+      .inbox-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+    }
 
     .inbox-contacts {
       background: rgba(10, 15, 30, 0.9);
@@ -712,7 +785,7 @@
 
     .inbox-search {
       flex: 1;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       border: 1px solid var(--border-color);
       border-radius: 10px;
       color: #fff;
@@ -721,7 +794,10 @@
       outline: none;
       font-family: inherit;
     }
-    .inbox-search:focus { border-color: var(--primary); }
+
+    .inbox-search:focus {
+      border-color: var(--primary);
+    }
 
     .inbox-new-btn {
       width: 40px;
@@ -736,7 +812,10 @@
       justify-content: center;
       flex-shrink: 0;
     }
-    .inbox-new-btn:hover { background: var(--primary-hover); }
+
+    .inbox-new-btn:hover {
+      background: var(--primary-hover);
+    }
 
     .inbox-chat-list {
       flex: 1;
@@ -749,10 +828,17 @@
       display: flex;
       gap: 12px;
       align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     }
-    .inbox-chat-item:hover { background: rgba(255,255,255,0.04); }
-    .inbox-chat-item.active { background: rgba(99, 102, 241, 0.12); border-left: 3px solid var(--primary); }
+
+    .inbox-chat-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .inbox-chat-item.active {
+      background: rgba(99, 102, 241, 0.12);
+      border-left: 3px solid var(--primary);
+    }
 
     .inbox-avatar {
       width: 42px;
@@ -769,7 +855,11 @@
       text-transform: uppercase;
     }
 
-    .inbox-chat-info { flex: 1; min-width: 0; }
+    .inbox-chat-info {
+      flex: 1;
+      min-width: 0;
+    }
+
     .inbox-chat-name {
       font-weight: 700;
       font-size: 0.9rem;
@@ -778,6 +868,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .inbox-chat-preview {
       font-size: 0.78rem;
       color: var(--text-dim);
@@ -786,6 +877,7 @@
       text-overflow: ellipsis;
       margin-top: 3px;
     }
+
     .inbox-chat-time {
       font-size: 0.7rem;
       color: var(--text-dim);
@@ -808,10 +900,12 @@
       gap: 12px;
       background: rgba(10, 15, 30, 0.8);
     }
+
     .inbox-thread-name {
       font-weight: 700;
       font-size: 1rem;
     }
+
     .inbox-thread-number {
       font-size: 0.78rem;
       color: var(--text-dim);
@@ -836,25 +930,31 @@
       word-break: break-word;
       position: relative;
     }
+
     .msg-sent {
       align-self: flex-end;
       background: linear-gradient(135deg, #4f46e5, #6366f1);
       color: #fff;
       border-bottom-right-radius: 4px;
     }
+
     .msg-received {
       align-self: flex-start;
-      background: rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.08);
       color: var(--text-main);
       border-bottom-left-radius: 4px;
     }
+
     .msg-time {
       font-size: 0.65rem;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255, 255, 255, 0.45);
       margin-top: 4px;
       text-align: right;
     }
-    .msg-received .msg-time { text-align: left; }
+
+    .msg-received .msg-time {
+      text-align: left;
+    }
 
     .inbox-empty {
       flex: 1;
@@ -865,7 +965,12 @@
       color: var(--text-dim);
       gap: 12px;
     }
-    .inbox-empty i { width: 56px; height: 56px; opacity: 0.3; }
+
+    .inbox-empty i {
+      width: 56px;
+      height: 56px;
+      opacity: 0.3;
+    }
 
     /* Compose bar */
     .inbox-compose {
@@ -876,39 +981,78 @@
       background: rgba(10, 15, 30, 0.8);
       position: relative;
     }
+
     .inbox-compose-row {
       display: flex;
       gap: 10px;
       align-items: center;
       width: 100%;
     }
+
     .inbox-media-preview {
       display: none;
       padding: 10px;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 8px;
       margin-bottom: 10px;
       align-items: center;
       gap: 10px;
       font-size: 0.85rem;
     }
-    .inbox-media-preview.active { display: flex; }
-    .inbox-media-preview img { max-height: 60px; max-width: 60px; border-radius: 4px; object-fit: cover; }
+
+    .inbox-media-preview.active {
+      display: flex;
+    }
+
+    .inbox-media-preview img {
+      max-height: 60px;
+      max-width: 60px;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
     .inbox-attach-btn {
-      background: none; border: none; color: var(--text-dim); cursor: pointer;
-      padding: 8px; border-radius: 8px; transition: all 0.2s;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: all 0.2s;
     }
-    .inbox-attach-btn:hover { color: var(--primary); background: rgba(255,255,255,0.05); }
+
+    .inbox-attach-btn:hover {
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
     .media-fetch-btn {
-      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-      color: #fff; padding: 6px 12px; border-radius: 6px; cursor: pointer;
-      font-size: 0.75rem; margin-top: 6px; display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .media-fetch-btn:hover { background: rgba(255,255,255,0.15); }
-    .media-rendered-img { max-width: 100%; border-radius: 8px; margin-top: 8px; }
+
+    .media-fetch-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .media-rendered-img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+
     .inbox-compose-input {
       flex: 1;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       border: 1px solid var(--border-color);
       border-radius: 12px;
       color: #fff;
@@ -919,7 +1063,11 @@
       resize: none;
       max-height: 80px;
     }
-    .inbox-compose-input:focus { border-color: var(--primary); }
+
+    .inbox-compose-input:focus {
+      border-color: var(--primary);
+    }
+
     .inbox-send-btn {
       width: 44px;
       height: 44px;
@@ -933,19 +1081,29 @@
       justify-content: center;
       flex-shrink: 0;
     }
-    .inbox-send-btn:hover { transform: scale(1.05); }
+
+    .inbox-send-btn:hover {
+      transform: scale(1.05);
+    }
 
     /* New Chat Modal */
     .modal-overlay {
       display: none;
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
       z-index: 1000;
       align-items: center;
       justify-content: center;
     }
-    .modal-overlay.open { display: flex; }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
     .modal-box {
       background: #111827;
       border: 1px solid var(--border-color);
@@ -954,6 +1112,7 @@
       width: 420px;
       max-width: 90vw;
     }
+
     .modal-title {
       font-family: 'Outfit', sans-serif;
       font-size: 1.3rem;
@@ -962,6 +1121,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="blob blob-primary"></div>
   <div class="blob blob-accent"></div>
@@ -1007,14 +1167,15 @@
 
       <!-- Workspace Content -->
       <main class="workspace">
-        
+
         <!-- View 0: INBOX -->
         <div id="inbox-tab" class="tab-content card" style="padding: 0; overflow: hidden;">
           <div class="inbox-layout">
             <!-- Left: Chat List -->
             <div class="inbox-contacts">
               <div class="inbox-contacts-header">
-                <input type="text" class="inbox-search" id="inbox-search" placeholder="Search chats..." oninput="filterInboxChats()">
+                <input type="text" class="inbox-search" id="inbox-search" placeholder="Search chats..."
+                  oninput="filterInboxChats()">
                 <button class="inbox-new-btn" title="New Chat" onclick="openNewChatModal()">
                   <i data-lucide="plus" style="width:20px;height:20px;"></i>
                 </button>
@@ -1040,7 +1201,8 @@
                     <div class="inbox-thread-name" id="inbox-active-name">Contact</div>
                     <div class="inbox-thread-number" id="inbox-active-number">number</div>
                   </div>
-                  <button class="btn btn-secondary" style="margin-left:auto; padding:8px 14px; font-size:0.75rem;" onclick="refreshActiveThread()">
+                  <button class="btn btn-secondary" style="margin-left:auto; padding:8px 14px; font-size:0.75rem;"
+                    onclick="refreshActiveThread()">
                     <i data-lucide="refresh-cw" style="width:14px;height:14px;"></i> Refresh
                   </button>
                 </div>
@@ -1048,15 +1210,21 @@
                 <div class="inbox-compose">
                   <div class="inbox-media-preview" id="inbox-media-preview">
                     <div id="media-preview-icon"><i data-lucide="file"></i></div>
-                    <div style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" id="media-preview-name">filename.jpg</div>
-                    <button class="btn btn-secondary" style="padding:4px 8px;" onclick="removeMedia()"><i data-lucide="x" style="width:14px;height:14px;"></i></button>
+                    <div style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"
+                      id="media-preview-name">filename.jpg</div>
+                    <button class="btn btn-secondary" style="padding:4px 8px;" onclick="removeMedia()"><i
+                        data-lucide="x" style="width:14px;height:14px;"></i></button>
                   </div>
                   <div class="inbox-compose-row">
-                    <button class="inbox-attach-btn" onclick="document.getElementById('inbox-media-file').click()" title="Attach File">
+                    <button class="inbox-attach-btn" onclick="document.getElementById('inbox-media-file').click()"
+                      title="Attach File">
                       <i data-lucide="paperclip" style="width:20px;height:20px;"></i>
                     </button>
-                    <input type="file" id="inbox-media-file" style="display:none;" onchange="handleMediaSelect(event)" accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.xls,.xlsx,.txt">
-                    <textarea class="inbox-compose-input" id="inbox-compose-text" placeholder="Type a message or caption..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendInboxReply()}"></textarea>
+                    <input type="file" id="inbox-media-file" style="display:none;" onchange="handleMediaSelect(event)"
+                      accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.xls,.xlsx,.txt">
+                    <textarea class="inbox-compose-input" id="inbox-compose-text"
+                      placeholder="Type a message or caption..." rows="1"
+                      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendInboxReply()}"></textarea>
                     <button class="inbox-send-btn" onclick="sendInboxReply()" id="inbox-send-btn">
                       <i data-lucide="send" style="width:20px;height:20px;"></i>
                     </button>
@@ -1070,15 +1238,18 @@
         <!-- New Chat Modal -->
         <div class="modal-overlay" id="new-chat-modal">
           <div class="modal-box">
-            <div class="modal-title"><i data-lucide="message-square-plus" style="width:22px;height:22px;color:var(--primary);vertical-align:middle;"></i> New Conversation</div>
+            <div class="modal-title"><i data-lucide="message-square-plus"
+                style="width:22px;height:22px;color:var(--primary);vertical-align:middle;"></i> New Conversation</div>
             <div class="form-group">
               <label class="form-label">Phone Number</label>
-              <input type="text" id="new-chat-number" class="form-input" style="padding-left:16px;" placeholder="918302806913">
+              <input type="text" id="new-chat-number" class="form-input" style="padding-left:16px;"
+                placeholder="918302806913">
               <div class="input-hint">Format: 91 + mobile (e.g. 918302806913)</div>
             </div>
             <div class="form-group">
               <label class="form-label">First Message</label>
-              <textarea id="new-chat-text" class="form-textarea" style="min-height:80px;" placeholder="Type your message..."></textarea>
+              <textarea id="new-chat-text" class="form-textarea" style="min-height:80px;"
+                placeholder="Type your message..."></textarea>
             </div>
             <div style="display:flex;gap:12px;">
               <button class="btn" onclick="sendNewChat()"><i data-lucide="send"></i> Send</button>
@@ -1092,7 +1263,7 @@
           <div class="card-title">
             <i data-lucide="message-square"></i> Send Single Text Message
           </div>
-          
+
           <div class="form-group">
             <label class="form-label">Recipient Number</label>
             <div class="input-wrapper">
@@ -1104,7 +1275,8 @@
 
           <div class="form-group">
             <label class="form-label">Message Text</label>
-            <textarea id="single-text" class="form-textarea" placeholder="Enter your message here...">Hello, ye Evolution API se test message hai.</textarea>
+            <textarea id="single-text" class="form-textarea"
+              placeholder="Enter your message here...">Hello, ye Evolution API se test message hai.</textarea>
             <div class="input-hint" id="char-counter">Characters: 46</div>
           </div>
 
@@ -1124,19 +1296,29 @@
             <i data-lucide="file-spreadsheet"></i>
             <div class="dropzone-title">Upload your numbers.csv file</div>
             <div class="dropzone-desc">Drag & Drop or Click to Browse. File must have 'number' and 'text' columns.</div>
-            <input type="file" id="csv-file-input" style="display: none;" accept=".csv" onchange="handleCsvFile(this.files[0])">
+            <input type="file" id="csv-file-input" style="display: none;" accept=".csv"
+              onchange="handleCsvFile(this.files[0])">
           </div>
 
-          <div style="margin: 20px 0; text-align: center; color: var(--text-dim); font-weight: 800; font-size: 0.8rem; letter-spacing: 2px;">OR ENTER MANUALLY</div>
+          <div
+            style="margin: 20px 0; text-align: center; color: var(--text-dim); font-weight: 800; font-size: 0.8rem; letter-spacing: 2px;">
+            OR ENTER MANUALLY</div>
 
-          <div class="form-group" style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color);">
+          <div class="form-group"
+            style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color);">
             <div class="form-group">
-              <label class="form-label"><i data-lucide="list-ordered" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:5px;"></i> Number List</label>
-              <textarea id="manual-numbers" class="form-textarea" style="min-height:80px;" placeholder="8302806913, 8302829246, 918239544970 (comma or newline separated)">8302806913, 8302829246, 918239544970</textarea>
+              <label class="form-label"><i data-lucide="list-ordered"
+                  style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:5px;"></i>
+                Number List</label>
+              <textarea id="manual-numbers" class="form-textarea" style="min-height:80px;"
+                placeholder="8302806913, 8302829246, 918239544970 (comma or newline separated)">8302806913, 8302829246, 918239544970</textarea>
             </div>
             <div class="form-group" style="margin-bottom: 15px;">
-              <label class="form-label"><i data-lucide="message-square" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:5px;"></i> Common Message</label>
-              <textarea id="manual-message" class="form-textarea" style="min-height:60px;" placeholder="Type your bulk message here...">Hello, this is a test message from Evolution Sender!</textarea>
+              <label class="form-label"><i data-lucide="message-square"
+                  style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:5px;"></i>
+                Common Message</label>
+              <textarea id="manual-message" class="form-textarea" style="min-height:60px;"
+                placeholder="Type your bulk message here...">Hello, this is a test message from Evolution Sender!</textarea>
             </div>
             <button class="btn btn-secondary" style="width:100%" onclick="loadManualList()">
               <i data-lucide="download-cloud" style="width:16px;height:16px;"></i> Load Manual Numbers
@@ -1179,12 +1361,15 @@
               <label class="form-label">Safe Send Delay</label>
               <div class="slider-container">
                 <div class="slider-header">
-                  <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Delay between sends (Seconds)</span>
+                  <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Delay between sends
+                    (Seconds)</span>
                   <span class="slider-val" id="delay-val">10s</span>
                 </div>
-                <input type="range" id="campaign-delay" class="form-range" min="8" max="30" value="10" oninput="document.getElementById('delay-val').innerText = this.value + 's'">
+                <input type="range" id="campaign-delay" class="form-range" min="8" max="30" value="10"
+                  oninput="document.getElementById('delay-val').innerText = this.value + 's'">
               </div>
-              <div class="input-hint" style="color: var(--warning);">⚠️ Keeping delay 8-15 seconds is highly recommended to protect your number.</div>
+              <div class="input-hint" style="color: var(--warning);">⚠️ Keeping delay 8-15 seconds is highly recommended
+                to protect your number.</div>
             </div>
 
             <div style="display: flex; gap: 15px; margin-bottom: 30px;">
@@ -1226,19 +1411,23 @@
           <div class="card-title">
             <i data-lucide="terminal"></i> Local PowerShell Script Generator
           </div>
-          
+
           <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 25px;">
-            If you prefer running commands directly from your local terminal or Windows PowerShell, you can download these fully generated, pre-configured PowerShell scripts. They are automatically built with your active host, API token, and settings!
+            If you prefer running commands directly from your local terminal or Windows PowerShell, you can download
+            these fully generated, pre-configured PowerShell scripts. They are automatically built with your active
+            host, API token, and settings!
           </p>
 
           <div class="ps-card">
             <div style="font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
               <i data-lucide="file-code" style="color: var(--primary);"></i> Single Message Script
             </div>
-            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 6px;">Sends a single test message instantly with custom configurations.</p>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 6px;">Sends a single test message
+              instantly with custom configurations.</p>
             <div class="ps-code-box">
               <button class="copy-btn" onclick="copyCode('code-single')">Copy</button>
-              <pre id="code-single">Invoke-RestMethod -Uri "https://..." -Method Post -Headers $headers -Body $body</pre>
+              <pre
+                id="code-single">Invoke-RestMethod -Uri "https://..." -Method Post -Headers $headers -Body $body</pre>
             </div>
             <button class="btn btn-secondary" onclick="downloadScript('single')">
               <i data-lucide="download"></i> Download send_single_message.ps1
@@ -1249,7 +1438,8 @@
             <div style="font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
               <i data-lucide="files" style="color: var(--primary);"></i> Bulk Sending Script
             </div>
-            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 6px;">Loops over local <code style="color: var(--primary);">numbers.csv</code> file, applying custom delays between sends.</p>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 6px;">Loops over local <code
+                style="color: var(--primary);">numbers.csv</code> file, applying custom delays between sends.</p>
             <div class="ps-code-box">
               <button class="copy-btn" onclick="copyCode('code-bulk')">Copy</button>
               <pre id="code-bulk">Import-Csv ".\numbers.csv" | ForEach-Object { ... Start-Sleep -Seconds 10 }</pre>
@@ -1270,7 +1460,8 @@
             <label class="form-label">Evolution API Endpoint URL</label>
             <div class="input-wrapper">
               <i data-lucide="globe"></i>
-              <input type="text" id="settings-host" class="form-input" placeholder="https://evolution-api-production-98d3.up.railway.app">
+              <input type="text" id="settings-host" class="form-input"
+                placeholder="https://evolution-api-production-98d3.up.railway.app">
             </div>
             <div class="input-hint">Base URL of your deployed Railway instance. Do not include ending slashes.</div>
           </div>
@@ -1290,7 +1481,8 @@
               <i data-lucide="layers"></i>
               <input type="text" id="settings-instance" class="form-input" placeholder="Business Growth Technology">
             </div>
-            <div class="input-hint">Specify the WhatsApp instance name (e.g. <code>Business Growth Technology</code> or <code>bgt</code>)</div>
+            <div class="input-hint">Specify the WhatsApp instance name (e.g. <code>Business Growth Technology</code> or
+              <code>bgt</code>)</div>
           </div>
 
           <div style="display: flex; gap: 15px; margin-top: 25px;">
@@ -1312,7 +1504,8 @@
               <div class="terminal-dot td-green"></div>
             </div>
             <div class="terminal-title">Live Server Proxy Output</div>
-            <div style="cursor: pointer;" onclick="clearConsole()"><i data-lucide="trash-2" style="width: 14px; height: 14px;"></i></div>
+            <div style="cursor: pointer;" onclick="clearConsole()"><i data-lucide="trash-2"
+                style="width: 14px; height: 14px;"></i></div>
           </div>
           <div class="terminal-logs" id="terminal-logs-container">
             <div class="log-line log-info">[SYSTEM] Initializing console proxy... Connection established.</div>
@@ -1351,11 +1544,11 @@
       setupDragDrop();
       updatePowerShellPreviews();
       loadInboxChats();
-      
+
       // Start regular status polling
       setInterval(checkStatus, 3000);
       checkStatus();
-      
+
       // Auto-sync inbox list
       setInterval(() => loadInboxChats(true), 8000);
     });
@@ -1373,7 +1566,7 @@
     function switchTab(evt, tabId) {
       document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      
+
       document.getElementById(tabId).style.display = 'block';
       evt.currentTarget.classList.add('active');
     }
@@ -1383,13 +1576,13 @@
       try {
         const res = await fetch('/api/settings');
         const data = await res.json();
-        
+
         activeConfig = data;
-        
+
         document.getElementById('settings-host').value = data.host;
         document.getElementById('settings-key').value = data.apiKey;
         document.getElementById('settings-instance').value = data.instance;
-        
+
         updatePowerShellPreviews();
       } catch (err) {
         logToTerminal(`Failed to retrieve server configurations: ${err.message}`, 'error');
@@ -1400,7 +1593,7 @@
     function updatePowerShellPreviews() {
       const urlEncoded = encodeURIComponent(activeConfig.instance || 'Business Growth Technology');
       const url = `${activeConfig.host || 'https://...'}/message/sendText/${urlEncoded}`;
-      
+
       const singlePs = `$headers = @{
   "apikey" = "${activeConfig.apiKey ? '•'.repeat(15) : 'YOUR_API_KEY'}"
   "Content-Type" = "application/json"
@@ -1423,6 +1616,7 @@ Invoke-RestMethod \`
   "apikey" = "${activeConfig.apiKey ? '•'.repeat(15) : 'YOUR_API_KEY'}"
   "Content-Type" = "application/json"
 }
+
 
 Import-Csv ".\\numbers.csv" | ForEach-Object {
   $body = @{
@@ -1461,7 +1655,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
           body: JSON.stringify({ host, apiKey, instance })
         });
         const data = await res.json();
-        
+
         if (data.success) {
           logToTerminal('Settings successfully updated.', 'success');
           alert('Settings successfully updated!');
@@ -1481,16 +1675,16 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
       const instance = document.getElementById('settings-instance').value.trim();
 
       logToTerminal(`Testing API Connection to host: ${host}...`, 'info');
-      
+
       const urlEncoded = encodeURIComponent(instance);
       // Endpoint to fetch instance status in Evolution API
       const testUrl = `${host}/instance/connectionState/${urlEncoded}`;
-      
+
       try {
         const res = await fetch(testUrl, {
           headers: { 'apikey': apiKey }
         });
-        
+
         if (res.status === 200) {
           const body = await res.json();
           logToTerminal(`Connection SUCCESS. Instance is fully initialized. Details: ${JSON.stringify(body.instance)}`, 'success');
@@ -1533,9 +1727,9 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
             host: activeConfig.host
           })
         });
-        
+
         const data = await res.json();
-        
+
         if (res.ok && data.success) {
           logToTerminal(`Message successfully delivered to ${number}.`, 'success');
           alert('✓ Message successfully sent!');
@@ -1556,7 +1750,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
     // Setup drag and drop for CSV uploader
     function setupDragDrop() {
       const zone = document.getElementById('csv-dropzone');
-      
+
       zone.addEventListener('dragover', (e) => {
         e.preventDefault();
         zone.style.borderColor = 'var(--primary)';
@@ -1572,7 +1766,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
         e.preventDefault();
         zone.style.borderColor = 'rgba(255, 255, 255, 0.15)';
         zone.style.background = 'rgba(0, 0, 0, 0.15)';
-        
+
         if (e.dataTransfer.files.length > 0) {
           handleCsvFile(e.dataTransfer.files[0]);
         }
@@ -1598,14 +1792,14 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
           body: formData
         });
         const data = await res.json();
-        
+
         if (data.success) {
           loadedCsvItems = data.data;
           logToTerminal(`Successfully parsed CSV. Loaded ${data.count} contacts.`, 'success');
-          
+
           document.getElementById('campaign-monitor').style.display = 'block';
           document.getElementById('m-total').innerText = loadedCsvItems.length;
-          
+
           renderCsvTable();
           updateCampaignMetrics(0, 0, loadedCsvItems.length);
         } else {
@@ -1621,13 +1815,13 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
     function renderCsvTable() {
       const tbody = document.getElementById('csv-table-body');
       tbody.innerHTML = '';
-      
+
       loadedCsvItems.forEach(item => {
         const tr = document.createElement('tr');
         tr.id = `row-${item.id}`;
-        
+
         const badgeClass = `badge-${item.status}`;
-        
+
         tr.innerHTML = `
           <td style="color: var(--text-dim); font-weight: bold; width: 60px;">#${item.id}</td>
           <td style="font-weight: 600; width: 140px;">${item.number || '<span style="color: var(--error);">No Number</span>'}</td>
@@ -1642,7 +1836,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
     function loadManualList() {
       const numsStr = document.getElementById('manual-numbers').value;
       const textStr = document.getElementById('manual-message').value;
-      
+
       if (!numsStr.trim() || !textStr.trim()) {
         alert("Please provide both numbers and a message.");
         return;
@@ -1655,7 +1849,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
       loadedCsvItems = rawNumbers.map((n, i) => {
         let clean = n.replace(/[^0-9]/g, '');
         if (clean.length === 10) clean = '91' + clean; // Auto prepend India code if 10 digits
-        
+
         return {
           id: i + 1,
           originalNumber: n,
@@ -1668,7 +1862,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
       logToTerminal(`Successfully parsed ${loadedCsvItems.length} manual contacts.`, 'success');
       document.getElementById('campaign-monitor').style.display = 'block';
       document.getElementById('m-total').innerText = loadedCsvItems.length;
-      
+
       renderCsvTable();
       updateCampaignMetrics(0, 0, loadedCsvItems.length);
       lucide.createIcons();
@@ -1677,7 +1871,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
     // Start Campaign Execution
     async function startCampaign() {
       const delay = parseInt(document.getElementById('campaign-delay').value);
-      
+
       logToTerminal(`Initiating bulk messaging campaign with ${loadedCsvItems.length} items. Delay: ${delay}s`, 'info');
 
       try {
@@ -1692,13 +1886,13 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
             host: activeConfig.host
           })
         });
-        
+
         const data = await res.json();
         if (data.success) {
           document.getElementById('btn-start-campaign').disabled = true;
           document.getElementById('btn-stop-campaign').disabled = false;
           document.getElementById('btn-clear-campaign').disabled = true;
-          
+
           // Begin polling status
           if (campaignPoller) clearInterval(campaignPoller);
           campaignPoller = setInterval(pollCampaignStatus, 1000);
@@ -1715,12 +1909,12 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
       try {
         const res = await fetch('/api/campaign/stop', { method: 'POST' });
         const data = await res.json();
-        
+
         if (data.success) {
           document.getElementById('btn-start-campaign').disabled = false;
           document.getElementById('btn-stop-campaign').disabled = true;
           document.getElementById('btn-clear-campaign').disabled = false;
-          
+
           if (campaignPoller) {
             clearInterval(campaignPoller);
             campaignPoller = null;
@@ -1737,7 +1931,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
       try {
         const res = await fetch('/api/campaign/status');
         const data = await res.json();
-        
+
         // Update items states in cache and DOM table
         data.items.forEach(item => {
           const cached = loadedCsvItems.find(i => i.id === item.id);
@@ -1747,7 +1941,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
             if (badge) {
               badge.className = `badge badge-${item.status}`;
               badge.innerText = item.status;
-              
+
               // Scroll table row into view if it's currently active
               if (item.status === 'sending' || item.status === 'sent') {
                 const tr = document.getElementById(`row-${item.id}`);
@@ -1778,12 +1972,12 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
           document.getElementById('btn-start-campaign').disabled = false;
           document.getElementById('btn-stop-campaign').disabled = true;
           document.getElementById('btn-clear-campaign').disabled = false;
-          
+
           if (campaignPoller) {
             clearInterval(campaignPoller);
             campaignPoller = null;
           }
-          
+
           logToTerminal(`Campaign process finished. Status: ${data.status.toUpperCase()}`, 'info');
         }
       } catch (err) {
@@ -1798,9 +1992,9 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
       document.getElementById('m-progress').innerText = `${percent}%`;
       document.getElementById('campaign-percentage').innerText = `${percent}%`;
       document.getElementById('campaign-progress-bar').style.width = `${percent}%`;
-      
+
       const remaining = total - (sent + failed);
-      document.getElementById('campaign-progress-label').innerText = 
+      document.getElementById('campaign-progress-label').innerText =
         percent === 100 ? 'Campaign Completed!' : `Processing items: ${sent + failed} processed, ${remaining} remaining...`;
     }
 
@@ -1832,10 +2026,10 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
       const container = document.getElementById('terminal-logs-container');
       const line = document.createElement('div');
       line.className = `log-line log-${type}`;
-      
+
       const timestamp = new Date().toLocaleTimeString();
       line.innerText = `[${timestamp}] [${type.toUpperCase()}] ${message}`;
-      
+
       container.appendChild(line);
       container.scrollTop = container.scrollHeight;
     }
@@ -1849,7 +2043,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
     async function checkStatus() {
       const dot = document.getElementById('server-status-dot');
       const txt = document.getElementById('server-status-text');
-      
+
       try {
         const res = await fetch('/api/settings');
         if (res.ok) {
@@ -1963,10 +2157,10 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
             if (msgContent) preview = msgContent.substring(0, 50);
           } else if (lm.messageType) {
             preview = lm.messageType === 'imageMessage' ? '📷 Image' :
-                     lm.messageType === 'videoMessage' ? '🎥 Video' :
-                     lm.messageType === 'audioMessage' ? '🎵 Audio' :
-                     lm.messageType === 'documentMessage' ? '📄 Document' :
-                     lm.messageType === 'protocolMessage' ? '—' : lm.messageType;
+              lm.messageType === 'videoMessage' ? '🎥 Video' :
+                lm.messageType === 'audioMessage' ? '🎵 Audio' :
+                  lm.messageType === 'documentMessage' ? '📄 Document' :
+                    lm.messageType === 'protocolMessage' ? '—' : lm.messageType;
           }
         }
         const safeName = name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
@@ -2055,7 +2249,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
       selectedMediaFile = file;
       document.getElementById('media-preview-name').innerText = file.name;
       document.getElementById('inbox-media-preview').classList.add('active');
-      
+
       const iconEl = document.getElementById('media-preview-icon');
       if (file.type.startsWith('image/')) {
         const url = URL.createObjectURL(file);
@@ -2093,7 +2287,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
           else if (m.videoMessage) mime = m.videoMessage.mimetype;
           else if (m.documentMessage) mime = m.documentMessage.mimetype;
           else if (m.audioMessage) mime = m.audioMessage.mimetype;
-          
+
           const src = `data:${mime};base64,${data.base64}`;
           if (mime.startsWith('image/')) {
             container.innerHTML = `<img src="${src}" class="media-rendered-img">`;
@@ -2125,21 +2319,21 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
         const isSent = key.fromMe === true;
         const cls = isSent ? 'msg-sent' : 'msg-received';
         const msgId = msg.id || 'msg_' + Math.random().toString(36).substr(2, 9);
-        
+
         let text = '';
         let mediaHtml = '';
         const m = msg.message || {};
-        
+
         if (m.conversation) text = m.conversation;
         else if (m.extendedTextMessage && m.extendedTextMessage.text) text = m.extendedTextMessage.text;
-        
+
         // Handle media
         const hasMedia = m.imageMessage || m.videoMessage || m.documentMessage || m.audioMessage;
         if (hasMedia) {
           const typeLabel = m.imageMessage ? '📷 Image' : m.videoMessage ? '🎥 Video' : m.documentMessage ? '📄 Document' : '🎵 Audio';
           const caption = (m.imageMessage?.caption || m.videoMessage?.caption || m.documentMessage?.fileName || '');
           if (caption) text = caption;
-          
+
           // Encoded message string for the fetcher
           const msgJson = encodeURIComponent(JSON.stringify(msg));
           const containerId = `media-container-${msgId}`;
@@ -2151,8 +2345,8 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
 
         const ts = msg.messageTimestamp || '';
         const timeStr = formatTime(ts);
-        const safeText = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-        
+        const safeText = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+
         html += `<div class="msg-bubble ${cls}">
                    ${mediaHtml}
                    ${safeText ? `<div>${safeText}</div>` : ''}
@@ -2171,19 +2365,19 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
       const input = document.getElementById('inbox-compose-text');
       const btn = document.getElementById('inbox-send-btn');
       const text = input.value.trim();
-      
+
       if (!activeJid || (!text && !selectedMediaFile)) return;
 
       const isLid = activeJid.includes('@lid');
       const number = isLid ? activeJid : activeJid.replace('@s.whatsapp.net', '');
       input.value = '';
-      
+
       const msgsEl = document.getElementById('inbox-messages');
       const now = new Date();
       const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      
+
       // Optimistic UI
-      const safeText = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+      const safeText = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
       let previewHtml = '';
       if (selectedMediaFile) {
         previewHtml = `<div style="font-size:0.8rem; color:var(--primary); margin-bottom:4px;"><i data-lucide="paperclip" style="width:12px;height:12px;"></i> ${selectedMediaFile.name}</div>`;
@@ -2204,7 +2398,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
           fd.append('number', number);
           fd.append('file', selectedMediaFile);
           if (text) fd.append('caption', text);
-          
+
           res = await fetch('/api/inbox/sendMedia', {
             method: 'POST',
             body: fd
@@ -2218,7 +2412,7 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
             body: JSON.stringify({ number, text })
           });
         }
-        
+
         const data = await res.json();
         if (data.success) {
           logToTerminal(`Inbox: Message sent to +${number}`, 'success');
@@ -2285,4 +2479,5 @@ Import-Csv ".\\numbers.csv" | ForEach-Object {
 
   </script>
 </body>
+
 </html>
